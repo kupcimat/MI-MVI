@@ -9,7 +9,7 @@ public class Test {
 		
 		/* Instantiate the evaluator. */
 		FitnessEvaluator myEvaluator = new FitnessEvaluator(
-				"C:\\Program Files\\NetLogo 5.0.2\\NetLogo.jar",
+				"/home/matej/Downloads/netlogo-5.0.2/NetLogo.jar",
 				"sablona.nlogo",
 				"sablona.xml");
 		

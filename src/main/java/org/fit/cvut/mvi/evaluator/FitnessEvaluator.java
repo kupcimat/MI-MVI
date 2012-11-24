@@ -80,10 +80,7 @@ public class FitnessEvaluator {
 			
 			
 			// Execute the process
-			Process process = Runtime.getRuntime().exec("java -Xmx1024m -Dfile.encoding=UTF-8 -cp \""
-				+ this.pathToNetLogo + "\" org.nlogo.headless.Main --model \""
-				+ nlogoFile.getAbsolutePath() + "\" --setup-file \""
-				+ this.pathToSetupFile + "\" --experiment experiment --table -");
+			Process process = Runtime.getRuntime().exec(buildCommand(nlogoFile));
 			
 			// Create output reader
 			InputStream output = process.getInputStream();
@@ -150,4 +147,17 @@ public class FitnessEvaluator {
 		return -evaluateSheepFitness(moveSheepBody, moveWolfBody);
 	}
 	
+	private String buildCommand(File nlogoFile) {
+	    StringBuilder command = new StringBuilder();
+	    command.append("java -Xmx2048m -Dfile.encoding=UTF-8 -cp ");
+	    command.append(pathToNetLogo);
+	    command.append(" org.nlogo.headless.Main --model ");
+	    command.append(nlogoFile.getAbsolutePath());
+	    command.append(" --setup-file ");
+	    command.append(pathToSetupFile);
+	    command.append(" --experiment experiment --table -");
+
+	    return command.toString();
+	}
+
 }
