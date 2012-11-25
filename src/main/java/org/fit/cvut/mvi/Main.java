@@ -3,8 +3,8 @@ package org.fit.cvut.mvi;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fit.cvut.mvi.model.Function;
 import org.fit.cvut.mvi.model.functions.Addition;
+import org.fit.cvut.mvi.model.functions.Function;
 
 public class Main {
 
