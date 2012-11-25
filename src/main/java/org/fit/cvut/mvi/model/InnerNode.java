@@ -2,6 +2,8 @@ package org.fit.cvut.mvi.model;
 
 import java.util.List;
 
+import org.fit.cvut.mvi.model.functions.Function;
+
 public class InnerNode implements Node {
 
     private final Function function;

@@ -1,4 +1,4 @@
-package org.fit.cvut.mvi.model;
+package org.fit.cvut.mvi.model.functions;
 
 import java.util.List;
 

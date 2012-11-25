@@ -2,8 +2,6 @@ package org.fit.cvut.mvi.model.functions;
 
 import java.util.List;
 
-import org.fit.cvut.mvi.model.AbstractFunction;
-
 public class Subtraction extends AbstractFunction {
 
     @Override

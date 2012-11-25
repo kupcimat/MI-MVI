@@ -3,6 +3,8 @@ package org.fit.cvut.mvi.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fit.cvut.mvi.model.functions.Function;
+
 public class InputNode implements Node {
 
     private final Function terminal;
