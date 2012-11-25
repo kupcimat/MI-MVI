@@ -10,6 +10,10 @@ public class InputNode implements Node {
     private final Function terminal;
 
     public InputNode(Function terminal) {
+        if (terminal.arity() != 0) {
+            throw new IllegalArgumentException("Input function must be terminal with arity 0");
+        }
+
         this.terminal = terminal;
     }
 
