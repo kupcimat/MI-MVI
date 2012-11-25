@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.fit.cvut.mvi.cgp.CGPConfiguration;
+import org.fit.cvut.mvi.cgp.GenomeFactory;
 import org.fit.cvut.mvi.model.Genome;
 import org.fit.cvut.mvi.model.InnerNode;
 import org.fit.cvut.mvi.model.InputNode;
 import org.fit.cvut.mvi.model.Node;
 import org.fit.cvut.mvi.model.functions.Addition;
+import org.fit.cvut.mvi.model.functions.Function;
 import org.fit.cvut.mvi.model.functions.Inputs;
 import org.fit.cvut.mvi.model.functions.Subtraction;
 
@@ -34,6 +37,20 @@ public class Main {
 
         Genome g = new Genome(nodes, outputs);
         System.out.println(g.decode());
-    }
 
+        // generate random genome
+        List<Function> functions = new ArrayList<>();
+        functions.add(new Addition());
+        functions.add(new Subtraction());
+
+        List<Function> inputs = new ArrayList<>();
+        inputs.add(Inputs.constant(0));
+        inputs.add(Inputs.constant(1));
+        inputs.add(Inputs.constant(2));
+
+        CGPConfiguration config = new CGPConfiguration.Builder().inputs(inputs).outputs(1).rows(2).columns(3).levelsBack(3).build();
+        GenomeFactory gf = new GenomeFactory(functions);
+
+        System.out.println(gf.createRandomGenome(config).decode());
+    }
 }
