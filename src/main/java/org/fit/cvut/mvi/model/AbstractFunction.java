@@ -5,15 +5,15 @@ import java.util.List;
 public abstract class AbstractFunction implements Function {
 
     @Override
-    public double execute(List<Double> arguments) {
+    public String code(List<String> arguments) {
         if (arguments.size() < arity()) {
             throw new IllegalArgumentException(
                     String.format("Function %s expected %d arguments, got %d", name(), arity(), arguments.size()));
         }
 
-        return safeExecute(arguments);
+        return safeCode(arguments);
     }
 
-    protected abstract double safeExecute(List<Double> arguments);
+    protected abstract String safeCode(List<String> arguments);
 
 }

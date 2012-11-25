@@ -13,11 +13,11 @@ public class Main {
      */
     public static void main(String[] args) {
         Function add = new Addition();
-        List<Double> arg = new ArrayList<>();
+        List<String> arg = new ArrayList<>();
 
-        arg.add(1.2);
-        arg.add(6.3);
-        System.out.println(add.execute(arg));
+        arg.add("1.2");
+        arg.add("6.3");
+        System.out.println(add.code(arg));
     }
 
 }

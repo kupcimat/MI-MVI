@@ -17,8 +17,8 @@ public class Addition extends AbstractFunction {
     }
 
     @Override
-    protected double safeExecute(List<Double> arguments) {
-        return arguments.get(0) + arguments.get(1);
+    protected String safeCode(List<String> arguments) {
+        return "(" + arguments.get(0) + " + " + arguments.get(1) + ")";
     }
 
 }

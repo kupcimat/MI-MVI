@@ -12,11 +12,11 @@ public class SubtractionTest {
     @Test
     public void testSafeExecute() {
         Subtraction sub = new Subtraction();
-        List<Double> args = new ArrayList<>();
+        List<String> args = new ArrayList<>();
 
-        args.add(2.5);
-        args.add(1.3);
-        assertEquals(1.2, sub.execute(args), 0.01);
+        args.add("2.5");
+        args.add("1.3");
+        assertEquals("(2.5 - 1.3)", sub.safeCode(args));
     }
 
     @Test

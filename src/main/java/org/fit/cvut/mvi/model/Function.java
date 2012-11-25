@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Function {
 
-    public double execute(List<Double> arguments);
+    public String code(List<String> arguments);
 
     public int arity();
 

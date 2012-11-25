@@ -12,11 +12,11 @@ public class AdditionTest {
     @Test
     public void testSafeExecute() {
         Addition add = new Addition();
-        List<Double> args = new ArrayList<>();
+        List<String> args = new ArrayList<>();
 
-        args.add(1.2);
-        args.add(1.3);
-        assertEquals(2.5, add.execute(args), 0.01);
+        args.add("1.2");
+        args.add("1.3");
+        assertEquals("(1.2 + 1.3)", add.safeCode(args));
     }
 
     @Test
