@@ -40,6 +40,24 @@ public class CGPConfiguration {
         return levelsBack;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("CGPConfiguration [inputs=");
+        builder.append(inputs.size());
+        builder.append(", outputs=");
+        builder.append(outputs);
+        builder.append(", rows=");
+        builder.append(rows);
+        builder.append(", columns=");
+        builder.append(columns);
+        builder.append(", levelsBack=");
+        builder.append(levelsBack);
+        builder.append("]");
+
+        return builder.toString();
+    }
+
     public static class Builder {
 
         private List<Function> inputs;

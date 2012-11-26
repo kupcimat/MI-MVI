@@ -46,17 +46,19 @@ public class GenomeFactory {
         List<Integer> nodes = new ArrayList<>();
 
         for (int i = 0; i < arity; i++) {
-            int min, max, randIndex;
+            int min, max, mod, randIndex;
 
-            // TODO NODES CAN ALSO CONNECT TO INPUTS!!!!
-            // TODO CHECK RANDOM CASTING TO INT
+            max = c.getInputs().size() + column * c.getRows();
+            // ensure that index won't be out of bounds
+            mod = max;
             if (column >= c.getLevelsBack()) {
                 min = c.getInputs().size() + (column - c.getLevelsBack()) * c.getRows();
+                // include input nodes
+                max += c.getInputs().size();
             } else {
                 min = 0;
             }
-            max = c.getInputs().size() + column * c.getRows();
-            randIndex = min + (int) (Math.random() * (max - min));
+            randIndex = (min + (int) (Math.random() * (max - min))) % mod;
 
             nodes.add(randIndex);
         }

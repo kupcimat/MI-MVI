@@ -48,9 +48,10 @@ public class Main {
         inputs.add(Inputs.constant(1));
         inputs.add(Inputs.constant(2));
 
-        CGPConfiguration config = new CGPConfiguration.Builder().inputs(inputs).outputs(1).rows(2).columns(3).levelsBack(3).build();
+        CGPConfiguration config = new CGPConfiguration.Builder().inputs(inputs).outputs(2).rows(2).columns(3).levelsBack(1).build();
         GenomeFactory gf = new GenomeFactory(functions);
 
+        System.out.println(config);
         System.out.println(gf.createRandomGenome(config).decode());
     }
 }
