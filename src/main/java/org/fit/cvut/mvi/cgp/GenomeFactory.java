@@ -46,19 +46,18 @@ public class GenomeFactory {
         List<Integer> nodes = new ArrayList<>();
 
         for (int i = 0; i < arity; i++) {
-            int min, max, mod, randIndex;
+            int min, max, shiftedMax, randIndex;
 
             max = c.getInputs().size() + column * c.getRows();
-            // ensure that index won't be out of bounds
-            mod = max;
             if (column >= c.getLevelsBack()) {
                 min = c.getInputs().size() + (column - c.getLevelsBack()) * c.getRows();
                 // include input nodes
-                max += c.getInputs().size();
+                shiftedMax = max + c.getInputs().size();
+                // ensure that index won't be out of bounds
+                randIndex = (min + (int) (Math.random() * (shiftedMax - min))) % max;
             } else {
-                min = 0;
+                randIndex = (int) (Math.random() * max);
             }
-            randIndex = (min + (int) (Math.random() * (max - min))) % mod;
 
             nodes.add(randIndex);
         }
