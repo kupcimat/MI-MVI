@@ -26,8 +26,8 @@ public class GenomeFactory {
         }
 
         // add random inner nodes to genome
-        for (int row = 0; row < config.getRows(); row++) {
-            for (int column = 0; column < config.getColumns(); column++) {
+        for (int column = 0; column < config.getColumns(); column++) {
+            for (int row = 0; row < config.getRows(); row++) {
                 Function function = randomFunction();
                 List<Integer> connections = randomConnections(config, function.arity(), column);
                 nodes.add(new InnerNode(function, connections));
