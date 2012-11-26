@@ -37,12 +37,12 @@ public class GenomeFactory {
         return new Genome(nodes, randomOutputs(config));
     }
 
-    private Function randomFunction() {
+    protected Function randomFunction() {
         int randIndex = (int) (Math.random() * functions.size());
         return functions.get(randIndex);
     }
 
-    private List<Integer> randomConnections(CGPConfiguration c, int arity, int column) {
+    protected List<Integer> randomConnections(CGPConfiguration c, int arity, int column) {
         List<Integer> nodes = new ArrayList<>();
 
         for (int i = 0; i < arity; i++) {
@@ -66,7 +66,7 @@ public class GenomeFactory {
         return nodes;
     }
 
-    private List<Integer> randomOutputs(CGPConfiguration config) {
+    protected List<Integer> randomOutputs(CGPConfiguration config) {
         List<Integer> nodes = new ArrayList<>();
 
         for (int i = 0; i < config.getOutputs(); i++) {
