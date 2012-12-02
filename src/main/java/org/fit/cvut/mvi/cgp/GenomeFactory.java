@@ -11,12 +11,6 @@ import org.fit.cvut.mvi.model.functions.Function;
 
 public class GenomeFactory {
 
-    private final List<Function> functions;
-
-    public GenomeFactory(List<Function> functions) {
-        this.functions = functions;
-    }
-
     public Genome createRandomGenome(CGPConfiguration config) {
         List<Node> nodes = new ArrayList<>();
 
@@ -28,7 +22,7 @@ public class GenomeFactory {
         // add random inner nodes to genome
         for (int column = 0; column < config.getColumns(); column++) {
             for (int row = 0; row < config.getRows(); row++) {
-                Function function = randomFunction();
+                Function function = randomFunction(config);
                 List<Integer> connections = randomConnections(config, function.arity(), column);
                 nodes.add(new InnerNode(function, connections));
             }
@@ -37,9 +31,9 @@ public class GenomeFactory {
         return new Genome(nodes, randomOutputs(config));
     }
 
-    protected Function randomFunction() {
-        int randIndex = (int) (Math.random() * functions.size());
-        return functions.get(randIndex);
+    protected Function randomFunction(CGPConfiguration config) {
+        int randIndex = (int) (Math.random() * config.getFunctions().size());
+        return config.getFunctions().get(randIndex);
     }
 
     protected List<Integer> randomConnections(CGPConfiguration c, int arity, int column) {

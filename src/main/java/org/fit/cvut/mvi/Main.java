@@ -48,8 +48,9 @@ public class Main {
         inputs.add(Inputs.constant(1));
         inputs.add(Inputs.constant(2));
 
-        CGPConfiguration config = new CGPConfiguration.Builder().inputs(inputs).outputs(2).rows(2).columns(3).levelsBack(1).build();
-        GenomeFactory gf = new GenomeFactory(functions);
+        CGPConfiguration config = new CGPConfiguration.Builder().functions(functions).inputs(inputs).outputs(2).rows(2).columns(3)
+                .levelsBack(1).build();
+        GenomeFactory gf = new GenomeFactory();
 
         System.out.println(config);
         System.out.println(gf.createRandomGenome(config).decode());

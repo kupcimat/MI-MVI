@@ -34,8 +34,8 @@ public class GenomeFactoryTest {
         inputs.add(input1);
         inputs.add(input2);
 
-        config = new CGPConfiguration.Builder().inputs(inputs).outputs(2).rows(2).columns(3).levelsBack(1).build();
-        factory = new GenomeFactory(functions);
+        config = new CGPConfiguration.Builder().functions(functions).inputs(inputs).outputs(2).rows(2).columns(3).levelsBack(1).build();
+        factory = new GenomeFactory();
     }
 
     @Test
@@ -45,7 +45,7 @@ public class GenomeFactoryTest {
 
     @Test
     public void testRandomFunction() {
-        factory.randomFunction();
+        factory.randomFunction(config);
     }
 
     @Test

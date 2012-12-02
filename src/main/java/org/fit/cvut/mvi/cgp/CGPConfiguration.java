@@ -6,18 +6,24 @@ import org.fit.cvut.mvi.model.functions.Function;
 
 public class CGPConfiguration {
 
+    private final List<Function> functions;
     private final List<Function> inputs;
     private final int outputs;
     private final int rows;
     private final int columns;
     private final int levelsBack;
 
-    public CGPConfiguration(List<Function> inputs, int outputs, int rows, int columns, int levelsBack) {
+    public CGPConfiguration(List<Function> functions, List<Function> inputs, int outputs, int rows, int columns, int levelsBack) {
+        this.functions = functions;
         this.inputs = inputs;
         this.outputs = outputs;
         this.rows = rows;
         this.columns = columns;
         this.levelsBack = levelsBack;
+    }
+
+    public List<Function> getFunctions() {
+        return functions;
     }
 
     public List<Function> getInputs() {
@@ -43,7 +49,9 @@ public class CGPConfiguration {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("CGPConfiguration [inputs=");
+        builder.append("CGPConfiguration [functions=");
+        builder.append(functions.size());
+        builder.append(", inputs=");
         builder.append(inputs.size());
         builder.append(", outputs=");
         builder.append(outputs);
@@ -60,11 +68,17 @@ public class CGPConfiguration {
 
     public static class Builder {
 
+        private List<Function> functions;
         private List<Function> inputs;
         private int outputs;
         private int rows;
         private int columns;
         private int levelsBack;
+
+        public Builder functions(List<Function> functions) {
+            this.functions = functions;
+            return this;
+        }
 
         public Builder inputs(List<Function> inputs) {
             this.inputs = inputs;
@@ -92,7 +106,7 @@ public class CGPConfiguration {
         }
 
         public CGPConfiguration build() {
-            return new CGPConfiguration(inputs, outputs, rows, columns, levelsBack);
+            return new CGPConfiguration(functions, inputs, outputs, rows, columns, levelsBack);
         }
 
     }
