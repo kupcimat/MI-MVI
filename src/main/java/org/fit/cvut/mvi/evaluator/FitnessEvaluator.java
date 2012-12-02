@@ -149,7 +149,7 @@ public class FitnessEvaluator {
 	
 	private String buildCommand(File nlogoFile) {
 	    StringBuilder command = new StringBuilder();
-	    command.append("java -Xmx2048m -Dfile.encoding=UTF-8 -cp ");
+	    command.append("java -Xmx1536m -Dfile.encoding=UTF-8 -cp ");
 	    command.append(pathToNetLogo);
 	    command.append(" org.nlogo.headless.Main --model ");
 	    command.append(nlogoFile.getAbsolutePath());
