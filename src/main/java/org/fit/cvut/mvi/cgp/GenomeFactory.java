@@ -31,29 +31,35 @@ public class GenomeFactory {
         return new Genome(nodes, randomOutputs(config));
     }
 
-    protected Function randomFunction(CGPConfiguration config) {
-        int randIndex = (int) (Math.random() * config.getFunctions().size());
-        return config.getFunctions().get(randIndex);
+    public Function randomFunction(CGPConfiguration config) {
+        return config.getFunctions().get((int) (Math.random() * config.getFunctions().size()));
     }
 
-    protected List<Integer> randomConnections(CGPConfiguration c, int arity, int column) {
+    public int randomInput(CGPConfiguration c, int column) {
+        int min, max, shiftedMax, randIndex;
+
+        max = c.getInputs().size() + column * c.getRows();
+        if (column >= c.getLevelsBack()) {
+            min = c.getInputs().size() + (column - c.getLevelsBack()) * c.getRows();
+            // include input nodes
+            shiftedMax = max + c.getInputs().size();
+            // ensure that index won't be out of bounds
+            randIndex = (min + (int) (Math.random() * (shiftedMax - min))) % max;
+        } else {
+            randIndex = (int) (Math.random() * max);
+        }
+
+        return randIndex;
+    }
+
+    public int randomOutput(CGPConfiguration config) {
+        return (int) (Math.random() * (config.getInputs().size() + config.getRows() * config.getColumns()));
+    }
+
+    protected List<Integer> randomConnections(CGPConfiguration config, int arity, int column) {
         List<Integer> nodes = new ArrayList<>();
-
         for (int i = 0; i < arity; i++) {
-            int min, max, shiftedMax, randIndex;
-
-            max = c.getInputs().size() + column * c.getRows();
-            if (column >= c.getLevelsBack()) {
-                min = c.getInputs().size() + (column - c.getLevelsBack()) * c.getRows();
-                // include input nodes
-                shiftedMax = max + c.getInputs().size();
-                // ensure that index won't be out of bounds
-                randIndex = (min + (int) (Math.random() * (shiftedMax - min))) % max;
-            } else {
-                randIndex = (int) (Math.random() * max);
-            }
-
-            nodes.add(randIndex);
+            nodes.add(randomInput(config, column));
         }
 
         return nodes;
@@ -61,10 +67,8 @@ public class GenomeFactory {
 
     protected List<Integer> randomOutputs(CGPConfiguration config) {
         List<Integer> nodes = new ArrayList<>();
-
         for (int i = 0; i < config.getOutputs(); i++) {
-            int randIndex = (int) (Math.random() * (config.getInputs().size() + config.getRows() * config.getColumns()));
-            nodes.add(randIndex);
+            nodes.add(randomOutput(config));
         }
 
         return nodes;
