@@ -10,4 +10,6 @@ public interface Node {
 
     public List<Integer> getConnections();
 
+    public Node copy();
+
 }

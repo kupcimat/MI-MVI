@@ -27,4 +27,9 @@ public class InputNode implements Node {
         return new ArrayList<>();
     }
 
+    @Override
+    public Node copy() {
+        return new InputNode(terminal);
+    }
+
 }
