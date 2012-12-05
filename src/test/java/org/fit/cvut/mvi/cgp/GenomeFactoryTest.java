@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class GenomeFactoryTest {
 
-    private static final int TEST_COUNT = 100;
+    private static final int TEST_COUNT = 1000;
 
     private CGPConfiguration config;
     private GenomeFactory factory;
