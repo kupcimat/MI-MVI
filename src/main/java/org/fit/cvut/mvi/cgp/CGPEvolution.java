@@ -26,7 +26,7 @@ public class CGPEvolution {
         this.evaluator = evaluator;
     }
 
-    public Genome evolve(Configuration evolutionConfig) {
+    public Genome evolve(CGPEvolutionConfiguration evolutionConfig) {
         notNull(evolutionConfig, "Evolution configuration shouldn't be null");
 
         Genome parentGenome = init(evolutionConfig.populationSize());
@@ -86,32 +86,6 @@ public class CGPEvolution {
             return 0;
         }
         return ((first < second) ? -1 : 1);
-    }
-
-    public static class Configuration {
-
-        private final int populationSize;
-        private final int mutations;
-        private final int generations;
-
-        public Configuration(int populationSize, int mutations, int generations) {
-            this.populationSize = populationSize;
-            this.mutations = mutations;
-            this.generations = generations;
-        }
-
-        public int populationSize() {
-            return populationSize;
-        }
-
-        public int mutations() {
-            return mutations;
-        }
-
-        public int generations() {
-            return generations;
-        }
-
     }
 
 }
