@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 
 public class CGPEvolution {
 
-    /*
-     * Default population size according to recommended CGP evolution strategy (1 + 4).
-     */
-    public static final int POPULATION_SIZE = 4;
-    public static final double FITNESS_TOLERANCE = 0.001;
     private static Logger logger = LoggerFactory.getLogger(CGPEvolution.class);
+
+    /*
+     * Represents tolerance which is used when comparing 2 fitness values.
+     */
+    public static final double FITNESS_TOLERANCE = 0.001;
 
     private CGPConfiguration config;
     private FitnessEvaluator evaluator;
@@ -26,17 +26,19 @@ public class CGPEvolution {
         this.evaluator = evaluator;
     }
 
-    public Genome evolve(int maxGenerations) {
-        Genome parentGenome = init();
+    public Genome evolve(Configuration evolutionConfig) {
+        notNull(evolutionConfig, "Evolution configuration shouldn't be null");
+
+        Genome parentGenome = init(evolutionConfig.populationSize());
         double parentFitness = getSheepFitness(parentGenome);
 
         int generation = 0;
-        while (generation < maxGenerations) {
+        while (generation < evolutionConfig.generations()) {
             generation++;
             logger.debug(String.format("Creating generation %s...", generation));
 
-            for (int i = 0; i < POPULATION_SIZE; i++) {
-                Genome mutatedGenome = mutate(parentGenome);
+            for (int i = 0; i < evolutionConfig.populationSize(); i++) {
+                Genome mutatedGenome = parentGenome.mutate(config, evolutionConfig.mutations());
                 double mutatedFitness = getSheepFitness(mutatedGenome);
 
                 if (compareFitness(mutatedFitness, parentFitness) >= 0) {
@@ -53,17 +55,12 @@ public class CGPEvolution {
         return parentGenome;
     }
 
-    protected Genome mutate(Genome genome) {
-        // TODO
-        return new GenomeFactory().createRandomGenome(config);
-    }
-
-    protected Genome init() {
+    protected Genome init(int populationSize) {
         GenomeFactory factory = new GenomeFactory();
         Genome bestGenome = factory.createRandomGenome(config);
         double bestFitness = getSheepFitness(bestGenome);
 
-        for (int i = 0; i < POPULATION_SIZE; i++) {
+        for (int i = 0; i < populationSize; i++) {
             Genome actGenome = factory.createRandomGenome(config);
             double actFitness = getSheepFitness(actGenome);
 
@@ -89,6 +86,32 @@ public class CGPEvolution {
             return 0;
         }
         return ((first < second) ? -1 : 1);
+    }
+
+    public static class Configuration {
+
+        private final int populationSize;
+        private final int mutations;
+        private final int generations;
+
+        public Configuration(int populationSize, int mutations, int generations) {
+            this.populationSize = populationSize;
+            this.mutations = mutations;
+            this.generations = generations;
+        }
+
+        public int populationSize() {
+            return populationSize;
+        }
+
+        public int mutations() {
+            return mutations;
+        }
+
+        public int generations() {
+            return generations;
+        }
+
     }
 
 }

@@ -33,15 +33,20 @@ public class Main {
         inputs.add(Inputs.constant(1));
         inputs.add(Inputs.constant(2));
 
+        // Create configurations
         CGPConfiguration config = new CGPConfiguration.Builder().functions(functions).inputs(inputs).outputs(2).rows(2).columns(3)
                 .levelsBack(1).build();
+        int population = 4;
+        int mutations = 1;
+        int generations = 1;
+        CGPEvolution.Configuration evolutionConfig = new CGPEvolution.Configuration(population, mutations, generations);
 
         // Create fitness evaluator
         FitnessEvaluator evaluator = new FitnessEvaluator(NETLOGO_PATH, TEMPLATE_PATH, SETUP_PATH);
 
         // Evolution
         CGPEvolution evolution = new CGPEvolution(config, evaluator);
-        Genome result = evolution.evolve(1);
+        Genome result = evolution.evolve(evolutionConfig);
 
         // Print results
         System.out.println(config);
