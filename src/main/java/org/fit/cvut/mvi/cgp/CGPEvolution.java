@@ -55,8 +55,8 @@ public class CGPEvolution {
                 }
             }
 
-            logger.debug(String.format("Best individual in generation %s, genome = %s, fitness = %s", generation, parentGenome.decode(),
-                    parentFitness));
+            logger.debug(String.format("Best individual in generation %s, fitness = %s, genome = %s", generation, parentFitness,
+                    parentGenome.decode()));
         }
 
         return parentGenome;
