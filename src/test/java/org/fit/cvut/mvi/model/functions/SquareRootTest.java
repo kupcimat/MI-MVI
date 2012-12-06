@@ -15,7 +15,7 @@ public class SquareRootTest {
         List<String> args = new ArrayList<>();
 
         args.add("47");
-        assertEquals("(sqrt 47)", sqrt.code(args));
+        assertEquals("(sqrt (abs 47))", sqrt.code(args));
     }
 
     @Test

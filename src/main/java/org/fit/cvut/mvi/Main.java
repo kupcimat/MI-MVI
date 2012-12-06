@@ -11,7 +11,6 @@ import org.fit.cvut.mvi.model.Genome;
 import org.fit.cvut.mvi.model.functions.Addition;
 import org.fit.cvut.mvi.model.functions.Function;
 import org.fit.cvut.mvi.model.functions.Inputs;
-import org.fit.cvut.mvi.model.functions.Modulo;
 import org.fit.cvut.mvi.model.functions.Multiplication;
 import org.fit.cvut.mvi.model.functions.Sine;
 import org.fit.cvut.mvi.model.functions.SquareRoot;
@@ -56,7 +55,7 @@ public class Main {
         functions.add(new Addition());
         functions.add(new Subtraction());
         functions.add(new Multiplication());
-        functions.add(new Modulo());
+        // functions.add(new Modulo());
         functions.add(new SquareRoot());
         functions.add(new Sine());
 

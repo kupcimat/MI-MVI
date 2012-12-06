@@ -16,7 +16,7 @@ public class SquareRoot extends AbstractFunction {
 
     @Override
     protected String safeCode(List<String> arguments) {
-        return "(sqrt " + arguments.get(0) + ")";
+        return "(sqrt (abs " + arguments.get(0) + "))";
     }
 
 }
