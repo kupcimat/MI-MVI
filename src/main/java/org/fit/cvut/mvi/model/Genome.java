@@ -70,12 +70,20 @@ public class Genome {
     }
 
     public String decode() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
 
         result.append("report list");
-        for (int output : outputs) {
+        // TODO workaround for sheep-wolf predation
+        if (outputs.size() == 2) {
             result.append(" ");
-            result.append(generateCode(output));
+            result.append(normalize(generateCode(outputs.get(0)), 360, 0.1));
+            result.append(" ");
+            result.append(normalize(generateCode(outputs.get(1)), 1, 1));
+        } else {
+            for (int output : outputs) {
+                result.append(" ");
+                result.append(generateCode(output));
+            }
         }
 
         return result.toString();
@@ -90,6 +98,20 @@ public class Genome {
         }
 
         return n.getFunction().code(args);
+    }
+
+    private String normalize(String value, int max, double variance) {
+        StringBuilder result = new StringBuilder();
+
+        result.append("(");
+        result.append(max);
+        result.append(" * (1 / (1 + exp (-");
+        result.append(variance);
+        result.append(" * ");
+        result.append(value);
+        result.append("))))");
+
+        return result.toString();
     }
 
     private List<Node> copyNodes() {
