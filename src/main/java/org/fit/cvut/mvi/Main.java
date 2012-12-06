@@ -33,10 +33,10 @@ public class Main {
         List<Function> inputs = getInputs();
 
         // Create CGP configuration
-        CGPConfiguration config = new CGPConfiguration.Builder().functions(functions).inputs(inputs).outputs(2).rows(2).columns(3)
-                .levelsBack(1).build();
-        CGPEvolutionConfiguration evolutionConfig = new CGPEvolutionConfiguration.Builder().populationSize(4).mutations(1).generations(1)
-                .build();
+        CGPConfiguration config = new CGPConfiguration.Builder().functions(functions).inputs(inputs).outputs(2).rows(7).columns(14)
+                .levelsBack(7).build();
+        CGPEvolutionConfiguration evolutionConfig = new CGPEvolutionConfiguration.Builder().populationSize(4).mutations(3)
+                .generations(1000).build();
 
         // Create fitness evaluator
         FitnessEvaluator evaluator = new FitnessEvaluator(NETLOGO_PATH, TEMPLATE_PATH, SETUP_PATH);
