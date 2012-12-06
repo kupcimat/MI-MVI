@@ -3,6 +3,9 @@ package org.fit.cvut.mvi;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.fit.cvut.mvi.cgp.CGPConfiguration;
 import org.fit.cvut.mvi.cgp.CGPEvolution;
 import org.fit.cvut.mvi.cgp.CGPEvolutionConfiguration;
@@ -15,39 +18,55 @@ import org.fit.cvut.mvi.model.functions.Multiplication;
 import org.fit.cvut.mvi.model.functions.Sine;
 import org.fit.cvut.mvi.model.functions.SquareRoot;
 import org.fit.cvut.mvi.model.functions.Subtraction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
 
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
+
+    /*
+     * Fitness evaluator and configuration resources
+     */
     public static final String NETLOGO_PATH = "/home/matej/Downloads/netlogo-5.0.2/NetLogo.jar";
     public static final String TEMPLATE_PATH = "sablona.nlogo";
     public static final String SETUP_PATH = "sablona.xml";
+    public static final String CONFIG_FILE = "src/main/resources/cgp.properties";
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        // Inner functions
-        List<Function> functions = getFunctions();
-        // Inputs
-        List<Function> inputs = getInputs();
+        try {
+            Configuration appConfig = new PropertiesConfiguration(CONFIG_FILE);
 
-        // Create CGP configuration
-        CGPConfiguration config = new CGPConfiguration.Builder().functions(functions).inputs(inputs).outputs(2).rows(7).columns(14)
-                .levelsBack(7).build();
-        CGPEvolutionConfiguration evolutionConfig = new CGPEvolutionConfiguration.Builder().populationSize(4).mutations(6)
-                .generations(1000).build();
+            // Create CGP configuration
+            List<Function> functions = getFunctions();
+            List<Function> inputs = getInputs();
 
-        // Create fitness evaluator
-        FitnessEvaluator evaluator = new FitnessEvaluator(NETLOGO_PATH, TEMPLATE_PATH, SETUP_PATH);
+            CGPConfiguration config = new CGPConfiguration.Builder().functions(functions).inputs(inputs)
+                    .outputs(appConfig.getInt("genome.outputs")).rows(appConfig.getInt("genome.rows"))
+                    .columns(appConfig.getInt("genome.columns")).levelsBack(appConfig.getInt("genome.levelsBack")).build();
+            CGPEvolutionConfiguration evolutionConfig = new CGPEvolutionConfiguration.Builder()
+                    .populationSize(appConfig.getInt("genome.populationSize")).mutations(appConfig.getInt("genome.mutations"))
+                    .generations(appConfig.getInt("genome.generations")).build();
 
-        // Evolution
-        CGPEvolution evolution = new CGPEvolution(config, evaluator);
-        System.out.println(config);
-        System.out.println(evolutionConfig);
-        Genome result = evolution.evolve(evolutionConfig);
+            logger.debug(config.toString());
+            logger.debug(evolutionConfig.toString());
 
-        // Print results
-        System.out.println(result.decode());
+            // Create fitness evaluator
+            FitnessEvaluator evaluator = new FitnessEvaluator(NETLOGO_PATH, TEMPLATE_PATH, SETUP_PATH);
+
+            // Evolution
+            CGPEvolution evolution = new CGPEvolution(config, evaluator);
+            Genome result = evolution.evolve(evolutionConfig);
+
+            // Print results
+            System.out.println(result.decode());
+
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<Function> getFunctions() {
