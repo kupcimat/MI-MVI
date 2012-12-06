@@ -1,5 +1,7 @@
 package org.fit.cvut.mvi.model;
 
+import static org.apache.commons.lang.Validate.notNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +99,11 @@ public class Genome {
         }
 
         return copies;
+    }
+
+    public boolean equalsPhenotype(Genome other) {
+        notNull(other, "Genotype shouldn't be null");
+        return decode().equals(other.decode());
     }
 
 }

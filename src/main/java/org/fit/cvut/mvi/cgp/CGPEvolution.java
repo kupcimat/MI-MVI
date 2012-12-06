@@ -14,7 +14,7 @@ public class CGPEvolution {
     /*
      * Represents tolerance which is used when comparing 2 fitness values.
      */
-    public static final double FITNESS_TOLERANCE = 0.001;
+    public static final double FITNESS_TOLERANCE = 0.01;
 
     private CGPConfiguration config;
     private FitnessEvaluator evaluator;
@@ -39,7 +39,15 @@ public class CGPEvolution {
 
             for (int i = 0; i < evolutionConfig.populationSize(); i++) {
                 Genome mutatedGenome = parentGenome.mutate(config, evolutionConfig.mutations());
-                double mutatedFitness = getSheepFitness(mutatedGenome);
+                double mutatedFitness;
+
+                // If mutated and parent genomes have the same phenotype, don't evaluate fitness
+                if (mutatedGenome.equalsPhenotype(parentGenome)) {
+                    mutatedFitness = parentFitness;
+                    logger.debug("Skipping fitness evaluation...");
+                } else {
+                    mutatedFitness = getSheepFitness(mutatedGenome);
+                }
 
                 if (compareFitness(mutatedFitness, parentFitness) >= 0) {
                     parentGenome = mutatedGenome;
@@ -47,11 +55,10 @@ public class CGPEvolution {
                 }
             }
 
-            logger.debug(String.format("Best fitness in generation = %s...", parentFitness));
+            logger.debug(String.format("Best individual in generation %s, genome = %s, fitness = %s", generation, parentGenome.decode(),
+                    parentFitness));
         }
 
-        logger.debug(String.format("Evolution ended with genome = %s (fitness %s), after %s generations", parentGenome.decode(),
-                parentFitness, generation));
         return parentGenome;
     }
 
