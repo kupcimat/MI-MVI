@@ -48,8 +48,8 @@ public class Main {
                     .outputs(appConfig.getInt("genome.outputs")).rows(appConfig.getInt("genome.rows"))
                     .columns(appConfig.getInt("genome.columns")).levelsBack(appConfig.getInt("genome.levelsBack")).build();
             CGPEvolutionConfiguration evolutionConfig = new CGPEvolutionConfiguration.Builder()
-                    .populationSize(appConfig.getInt("genome.populationSize")).mutations(appConfig.getInt("genome.mutations"))
-                    .generations(appConfig.getInt("genome.generations")).build();
+                    .populationSize(appConfig.getInt("evolution.populationSize")).mutations(appConfig.getInt("evolution.mutations"))
+                    .generations(appConfig.getInt("evolution.generations")).build();
 
             logger.debug(config.toString());
             logger.debug(evolutionConfig.toString());
