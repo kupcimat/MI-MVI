@@ -2,6 +2,9 @@ package org.fit.cvut.mvi.cgp;
 
 import static org.apache.commons.lang.Validate.notNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fit.cvut.mvi.evaluator.FitnessEvaluator;
 import org.fit.cvut.mvi.model.Genome;
 import org.slf4j.Logger;
@@ -37,21 +40,26 @@ public class CGPEvolution {
             generation++;
             logger.debug(String.format("Creating generation %s...", generation));
 
+            // Generate population
+            List<Genome> children = new ArrayList<>();
             for (int i = 0; i < evolutionConfig.populationSize(); i++) {
-                Genome mutatedGenome = parentGenome.mutate(config, evolutionConfig.mutations());
-                double mutatedFitness;
+                children.add(parentGenome.mutate(config, evolutionConfig.mutations()));
+            }
 
+            // Select the best genome
+            for (Genome genome : children) {
+                double fitness;
                 // If mutated and parent genomes have the same phenotype, don't evaluate fitness
-                if (mutatedGenome.equalsPhenotype(parentGenome)) {
-                    mutatedFitness = parentFitness;
+                if (genome.equalsPhenotype(parentGenome)) {
+                    fitness = parentFitness;
                     logger.debug("Skipping fitness evaluation...");
                 } else {
-                    mutatedFitness = getSheepFitness(mutatedGenome);
+                    fitness = getSheepFitness(genome);
                 }
 
-                if (compareFitness(mutatedFitness, parentFitness) >= 0) {
-                    parentGenome = mutatedGenome;
-                    parentFitness = mutatedFitness;
+                if (compareFitness(fitness, parentFitness) >= 0) {
+                    parentGenome = genome;
+                    parentFitness = fitness;
                 }
             }
 
