@@ -24,6 +24,20 @@ public class CGPEvolutionConfiguration {
         return generations;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("CGPEvolutionConfiguration [populationSize=");
+        builder.append(populationSize);
+        builder.append(", mutations=");
+        builder.append(mutations);
+        builder.append(", generations=");
+        builder.append(generations);
+        builder.append("]");
+
+        return builder.toString();
+    }
+
     public static class Builder {
 
         private int populationSize;

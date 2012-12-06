@@ -34,7 +34,7 @@ public class Main {
         // Create CGP configuration
         CGPConfiguration config = new CGPConfiguration.Builder().functions(functions).inputs(inputs).outputs(2).rows(7).columns(14)
                 .levelsBack(7).build();
-        CGPEvolutionConfiguration evolutionConfig = new CGPEvolutionConfiguration.Builder().populationSize(4).mutations(3)
+        CGPEvolutionConfiguration evolutionConfig = new CGPEvolutionConfiguration.Builder().populationSize(4).mutations(6)
                 .generations(1000).build();
 
         // Create fitness evaluator
@@ -42,10 +42,11 @@ public class Main {
 
         // Evolution
         CGPEvolution evolution = new CGPEvolution(config, evaluator);
+        System.out.println(config);
+        System.out.println(evolutionConfig);
         Genome result = evolution.evolve(evolutionConfig);
 
         // Print results
-        System.out.println(config);
         System.out.println(result.decode());
     }
 
