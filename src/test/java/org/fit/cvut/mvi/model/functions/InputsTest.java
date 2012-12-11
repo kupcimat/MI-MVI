@@ -1,7 +1,10 @@
 package org.fit.cvut.mvi.model.functions;
 
-import static org.junit.Assert.*;
-import static org.fit.cvut.mvi.model.functions.Inputs.*;
+import static org.fit.cvut.mvi.model.functions.Inputs.constant;
+import static org.fit.cvut.mvi.model.functions.Inputs.patchAt;
+import static org.fit.cvut.mvi.model.functions.Inputs.turtlesAt;
+import static org.fit.cvut.mvi.model.functions.Inputs.turtlesInCone;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
@@ -34,29 +37,21 @@ public class InputsTest {
 
     @Test
     public void testTurtlesAt() {
-        Function f = turtlesAt("turtles", "-1 0");
+        Function f = turtlesAt("turtles", Inputs.Direction.WEST);
 
         assertEquals(0, f.arity());
         assertEquals("turtlesAt", f.name());
-        assertEquals("(count turtles-at -1 0)", f.code(new ArrayList<String>()));
-    }
-
-    @Test
-    public void testPatchAhead() {
-        Function f = patchAhead("gray", 2);
-
-        assertEquals(0, f.arity());
-        assertEquals("patchAhead", f.name());
-        assertEquals("(count (patch-set patch-ahead 2) with [pcolor = gray])", f.code(new ArrayList<String>()));
+        assertEquals("(count turtles-on patches at-points [[-4 2] [-4 1] [-4 0] [-4 -1] [-4 -2] [-3 2] [-3 1] [-3 0] [-3 -1] [-3 -2]])",
+                f.code(new ArrayList<String>()));
     }
 
     @Test
     public void testPatchAt() {
-        Function f = patchAt("green", "0 1");
+        Function f = patchAt("green", Inputs.Direction.NORTH);
 
         assertEquals(0, f.arity());
         assertEquals("patchAt", f.name());
-        assertEquals("(count (patch-set patch-at 0 1) with [pcolor = green])", f.code(new ArrayList<String>()));
+        assertEquals("(count patches at-points [[0 1] [0 2] [0 3] [0 4] [0 5]] with [pcolor = green])", f.code(new ArrayList<String>()));
     }
 
 }

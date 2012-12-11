@@ -17,14 +17,6 @@ public class Inputs {
     public static final String SHEEP = "sheep";
     public static final String WOLVES = "wolves";
 
-    /*
-     * Location constants
-     */
-    public static final String NORTH = "0 1";
-    public static final String SOUTH = "0 -1";
-    public static final String EAST = "1 0";
-    public static final String WEST = "-1 0";
-
     public static Function constant(final int number) {
         return new Function() {
             @Override
@@ -63,7 +55,7 @@ public class Inputs {
         };
     }
 
-    public static Function turtlesAt(final String turtles, final String coordinates) {
+    public static Function turtlesAt(final String turtles, final Direction direction) {
         return new Function() {
             @Override
             public String name() {
@@ -72,7 +64,23 @@ public class Inputs {
 
             @Override
             public String code(List<String> arguments) {
-                return "(count " + turtles + "-at " + coordinates + ")";
+                String result = "";
+                switch (direction) {
+                case NORTH:
+                    result = "(count " + turtles + "-on patches at-points [[-2 4] [-1 4] [0 4] [1 4] [2 4] [-2 3] [-1 3] [0 3] [1 3] [2 3]])";
+                    break;
+                case EAST:
+                    result = "(count " + turtles + "-on patches at-points [[4 2] [4 1] [4 0] [4 -1] [4 -2] [3 2] [3 1] [3 0] [3 -1] [3 -2]])";
+                    break;
+                case SOUTH:
+                    result = "(count " + turtles + "-on patches at-points [[-2 -4] [-1 -4] [0 -4] [1 -4] [2 -4] [-2 -3] [-1 -3] [0 -3] [1 -3] [2 -3]])";
+                    break;
+                case WEST:
+                    result = "(count " + turtles + "-on patches at-points [[-4 2] [-4 1] [-4 0] [-4 -1] [-4 -2] [-3 2] [-3 1] [-3 0] [-3 -1] [-3 -2]])";
+                    break;
+                }
+
+                return result;
             }
 
             @Override
@@ -82,26 +90,7 @@ public class Inputs {
         };
     }
 
-    public static Function patchAhead(final String type, final int distance) {
-        return new Function() {
-            @Override
-            public String name() {
-                return "patchAhead";
-            }
-
-            @Override
-            public String code(List<String> arguments) {
-                return "(count (patch-set patch-ahead " + distance + ") with [pcolor = " + type + "])";
-            }
-
-            @Override
-            public int arity() {
-                return 0;
-            }
-        };
-    }
-
-    public static Function patchAt(final String type, final String coordinates) {
+    public static Function patchAt(final String type, final Direction direction) {
         return new Function() {
             @Override
             public String name() {
@@ -110,7 +99,23 @@ public class Inputs {
 
             @Override
             public String code(List<String> arguments) {
-                return "(count (patch-set patch-at " + coordinates + ") with [pcolor = " + type + "])";
+                String result = "";
+                switch (direction) {
+                case NORTH:
+                    result = "(count patches at-points [[0 1] [0 2] [0 3] [0 4] [0 5]] with [pcolor = " + type + "])";
+                    break;
+                case EAST:
+                    result = "(count patches at-points [[1 0] [2 0] [3 0] [4 0] [5 0]] with [pcolor = " + type + "])";
+                    break;
+                case SOUTH:
+                    result = "(count patches at-points [[0 -1] [0 -2] [0 -3] [0 -4] [0 -5]] with [pcolor = " + type + "])";
+                    break;
+                case WEST:
+                    result = "(count patches at-points [[-1 0] [-2 0] [-3 0] [-4 0] [-5 0]] with [pcolor = " + type + "])";
+                    break;
+                }
+
+                return result;
             }
 
             @Override
@@ -118,6 +123,10 @@ public class Inputs {
                 return 0;
             }
         };
+    }
+
+    public static enum Direction {
+        NORTH, EAST, SOUTH, WEST
     }
 
 }

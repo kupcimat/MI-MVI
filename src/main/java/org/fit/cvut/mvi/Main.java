@@ -14,6 +14,7 @@ import org.fit.cvut.mvi.model.Genome;
 import org.fit.cvut.mvi.model.functions.Addition;
 import org.fit.cvut.mvi.model.functions.Function;
 import org.fit.cvut.mvi.model.functions.Inputs;
+import org.fit.cvut.mvi.model.functions.Inputs.Direction;
 import org.fit.cvut.mvi.model.functions.Multiplication;
 import org.fit.cvut.mvi.model.functions.Sine;
 import org.fit.cvut.mvi.model.functions.SquareRoot;
@@ -86,35 +87,37 @@ public class Main {
     public static List<Function> getInputs() {
         List<Function> inputs = new ArrayList<>();
 
-        // inputs.add(Inputs.constant(45));
         // Grass patches
-        inputs.add(Inputs.patchAt(Inputs.GRASS, Inputs.NORTH));
-        inputs.add(Inputs.patchAt(Inputs.GRASS, Inputs.SOUTH));
-        inputs.add(Inputs.patchAt(Inputs.GRASS, Inputs.EAST));
-        inputs.add(Inputs.patchAt(Inputs.GRASS, Inputs.WEST));
+        inputs.add(Inputs.patchAt(Inputs.GRASS, Direction.NORTH));
+        inputs.add(Inputs.patchAt(Inputs.GRASS, Direction.SOUTH));
+        inputs.add(Inputs.patchAt(Inputs.GRASS, Direction.EAST));
+        inputs.add(Inputs.patchAt(Inputs.GRASS, Direction.WEST));
         // Dirt patches
-        inputs.add(Inputs.patchAt(Inputs.DIRT, Inputs.NORTH));
-        inputs.add(Inputs.patchAt(Inputs.DIRT, Inputs.SOUTH));
-        inputs.add(Inputs.patchAt(Inputs.DIRT, Inputs.EAST));
-        inputs.add(Inputs.patchAt(Inputs.DIRT, Inputs.WEST));
+        inputs.add(Inputs.patchAt(Inputs.DIRT, Direction.NORTH));
+        inputs.add(Inputs.patchAt(Inputs.DIRT, Direction.SOUTH));
+        inputs.add(Inputs.patchAt(Inputs.DIRT, Direction.EAST));
+        inputs.add(Inputs.patchAt(Inputs.DIRT, Direction.WEST));
         // Trap patches
-        inputs.add(Inputs.patchAt(Inputs.TRAP, Inputs.NORTH));
-        inputs.add(Inputs.patchAt(Inputs.TRAP, Inputs.SOUTH));
-        inputs.add(Inputs.patchAt(Inputs.TRAP, Inputs.EAST));
-        inputs.add(Inputs.patchAt(Inputs.TRAP, Inputs.WEST));
-        inputs.add(Inputs.patchAhead(Inputs.TRAP, 3));
+        inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.NORTH));
+        inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.SOUTH));
+        inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.EAST));
+        inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.WEST));
         // Wolves
-        inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Inputs.NORTH));
-        inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Inputs.SOUTH));
-        inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Inputs.EAST));
-        inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Inputs.WEST));
-        inputs.add(Inputs.turtlesInCone(Inputs.WOLVES, 3, 90));
+        inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.NORTH));
+        inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.SOUTH));
+        inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.EAST));
+        inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.WEST));
+        inputs.add(Inputs.turtlesInCone(Inputs.WOLVES, 1, 120));
+        inputs.add(Inputs.turtlesInCone(Inputs.WOLVES, 3, 120));
+        inputs.add(Inputs.turtlesInCone(Inputs.WOLVES, 5, 120));
         // Sheep
-        inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Inputs.NORTH));
-        inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Inputs.SOUTH));
-        inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Inputs.EAST));
-        inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Inputs.WEST));
-        inputs.add(Inputs.turtlesInCone(Inputs.SHEEP, 3, 90));
+        inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.NORTH));
+        inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.SOUTH));
+        inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.EAST));
+        inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.WEST));
+        inputs.add(Inputs.turtlesInCone(Inputs.SHEEP, 1, 120));
+        inputs.add(Inputs.turtlesInCone(Inputs.SHEEP, 3, 120));
+        inputs.add(Inputs.turtlesInCone(Inputs.SHEEP, 5, 120));
 
         return inputs;
     }
