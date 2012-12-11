@@ -76,7 +76,7 @@ public class Genome {
         // TODO workaround for sheep-wolf predation
         if (outputs.size() == 2) {
             result.append(" ");
-            result.append(normalize(generateCode(outputs.get(0)), 360, 0.1));
+            result.append(normalize(generateCode(outputs.get(0)), 360, 1));
             result.append(" ");
             result.append(normalize(generateCode(outputs.get(1)), 1, 1));
         } else {

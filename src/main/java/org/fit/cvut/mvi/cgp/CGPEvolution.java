@@ -96,6 +96,14 @@ public class CGPEvolution {
         return fitness;
     }
 
+    protected double getWolfFitness(Genome genome) {
+        String code = genome.decode();
+        double fitness = evaluator.evaluateWolvesFitness(FitnessEvaluator.RANDOM_MOVE, code);
+
+        logger.debug(String.format("Evaluated wolf with fitness = %s, genome = %s", fitness, code));
+        return fitness;
+    }
+
     protected int compareFitness(double first, double second) {
         if (Math.abs(first - second) < FITNESS_TOLERANCE) {
             return 0;

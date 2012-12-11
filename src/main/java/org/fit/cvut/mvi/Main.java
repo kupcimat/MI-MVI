@@ -86,7 +86,7 @@ public class Main {
     public static List<Function> getInputs() {
         List<Function> inputs = new ArrayList<>();
 
-        inputs.add(Inputs.constant(45));
+        // inputs.add(Inputs.constant(45));
         // Grass patches
         inputs.add(Inputs.patchAt(Inputs.GRASS, Inputs.NORTH));
         inputs.add(Inputs.patchAt(Inputs.GRASS, Inputs.SOUTH));
