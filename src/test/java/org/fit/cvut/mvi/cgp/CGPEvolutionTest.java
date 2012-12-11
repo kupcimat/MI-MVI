@@ -18,7 +18,7 @@ public class CGPEvolutionTest {
         CGPConfiguration mockConfig = mock(CGPConfiguration.class);
         FitnessEvaluator mockEvaluator = mock(FitnessEvaluator.class);
 
-        evolution = new CGPEvolution(mockConfig, mockEvaluator);
+        evolution = new CGPEvolution(mockConfig, mockEvaluator, "sheep");
     }
 
     @Test

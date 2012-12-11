@@ -34,10 +34,25 @@ public class Main {
     public static final String SETUP_PATH = "sablona.xml";
     public static final String CONFIG_FILE = "src/main/resources/cgp.properties";
 
+    public static final String SHEEP = "sheep";
+    public static final String WOLVES = "wolves";
+
     /**
      * @param args
      */
     public static void main(String[] args) {
+
+        // Read command line parameters
+        if (args.length < 1) {
+            System.out.println("Usage: java -jar <jar-file> <sheep|wolves>");
+            return;
+        }
+        if (!args[0].equals(SHEEP) && !args[0].equals(WOLVES)) {
+            System.out.println("Usage: java -jar <jar-file> <sheep|wolves>");
+            return;
+        }
+        String turtles = args[0];
+
         try {
             Configuration appConfig = new PropertiesConfiguration(CONFIG_FILE);
 
@@ -59,7 +74,7 @@ public class Main {
             FitnessEvaluator evaluator = new FitnessEvaluator(NETLOGO_PATH, TEMPLATE_PATH, SETUP_PATH);
 
             // Evolution
-            CGPEvolution evolution = new CGPEvolution(config, evaluator);
+            CGPEvolution evolution = new CGPEvolution(config, evaluator, turtles);
             Genome result = evolution.evolve(evolutionConfig);
 
             // Print results

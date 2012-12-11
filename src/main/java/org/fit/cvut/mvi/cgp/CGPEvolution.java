@@ -1,10 +1,12 @@
 package org.fit.cvut.mvi.cgp;
 
+import static org.apache.commons.lang.Validate.notEmpty;
 import static org.apache.commons.lang.Validate.notNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fit.cvut.mvi.Main;
 import org.fit.cvut.mvi.evaluator.FitnessEvaluator;
 import org.fit.cvut.mvi.model.Genome;
 import org.slf4j.Logger;
@@ -21,19 +23,22 @@ public class CGPEvolution {
 
     private CGPConfiguration config;
     private FitnessEvaluator evaluator;
+    private String turtles;
 
-    public CGPEvolution(CGPConfiguration config, FitnessEvaluator evaluator) {
+    public CGPEvolution(CGPConfiguration config, FitnessEvaluator evaluator, String turtles) {
         notNull(config, "CGPConfiguration shouldn't be null");
         notNull(evaluator, "FitnessEvaluator shouldn't be null");
+        notEmpty(turtles, "Turtles shouldn't be null");
         this.config = config;
         this.evaluator = evaluator;
+        this.turtles = turtles;
     }
 
     public Genome evolve(CGPEvolutionConfiguration evolutionConfig) {
         notNull(evolutionConfig, "Evolution configuration shouldn't be null");
 
         Genome parentGenome = init(evolutionConfig.populationSize());
-        double parentFitness = getSheepFitness(parentGenome);
+        double parentFitness = getFitness(parentGenome);
 
         int generation = 0;
         while (generation < evolutionConfig.generations()) {
@@ -54,7 +59,7 @@ public class CGPEvolution {
                     fitness = parentFitness;
                     logger.debug("Skipping fitness evaluation...");
                 } else {
-                    fitness = getSheepFitness(genome);
+                    fitness = getFitness(genome);
                 }
 
                 if (compareFitness(fitness, parentFitness) >= 0) {
@@ -73,11 +78,11 @@ public class CGPEvolution {
     protected Genome init(int populationSize) {
         GenomeFactory factory = new GenomeFactory();
         Genome bestGenome = factory.createRandomGenome(config);
-        double bestFitness = getSheepFitness(bestGenome);
+        double bestFitness = getFitness(bestGenome);
 
         for (int i = 0; i < populationSize; i++) {
             Genome actGenome = factory.createRandomGenome(config);
-            double actFitness = getSheepFitness(actGenome);
+            double actFitness = getFitness(actGenome);
 
             if (actFitness > bestFitness) {
                 bestGenome = actGenome;
@@ -86,6 +91,17 @@ public class CGPEvolution {
         }
 
         return bestGenome;
+    }
+
+    protected double getFitness(Genome genome) {
+        if (Main.SHEEP.equals(turtles)) {
+            return getSheepFitness(genome);
+        }
+        if (Main.WOLVES.equals(turtles)) {
+            return getWolfFitness(genome);
+        }
+
+        return 0;
     }
 
     protected double getSheepFitness(Genome genome) {
