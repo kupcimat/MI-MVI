@@ -105,7 +105,7 @@ public class FitnessEvaluator {
 					
 					if(numSheep == 0 || numWolves == 0 || tick == 300) {
 						
-						if(numWolves == 0 || numWolves == 0) {
+						if(numSheep == 0 || numWolves == 0) {
 							fitnessSum += (numWolves == 0 ? 1 : -1) * 100;
 							fitnessSum += 10*(numSheep - numWolves);
 						}
