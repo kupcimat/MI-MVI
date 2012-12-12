@@ -45,7 +45,7 @@ to setup
   set grass count patches with [pcolor = green]
   reset-ticks
   
-  ;; use-sample-map
+  use-sample-map
 end
 
 to use-sample-map
