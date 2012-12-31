@@ -117,22 +117,30 @@ public class Main {
         inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.SOUTH));
         inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.EAST));
         inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.WEST));
+        // inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.NORTH_EAST));
+        // inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.SOUTH_EAST));
+        // inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.SOUTH_WEST));
+        // inputs.add(Inputs.patchAt(Inputs.TRAP, Direction.NORTH_WEST));
         // Wolves
         inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.NORTH));
         inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.SOUTH));
         inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.EAST));
         inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.WEST));
-        inputs.add(Inputs.turtlesInCone(Inputs.WOLVES, 1, 120));
-        inputs.add(Inputs.turtlesInCone(Inputs.WOLVES, 3, 120));
-        inputs.add(Inputs.turtlesInCone(Inputs.WOLVES, 5, 120));
+        // inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.FAR_SOUTH));
+        // inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.FAR_NORTH));
+        // inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.FAR_EAST));
+        // inputs.add(Inputs.turtlesAt(Inputs.WOLVES, Direction.FAR_WEST));
+        inputs.add(Inputs.turtlesInCone(Inputs.WOLVES, 2, 120));
         // Sheep
         inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.NORTH));
         inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.SOUTH));
         inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.EAST));
         inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.WEST));
-        inputs.add(Inputs.turtlesInCone(Inputs.SHEEP, 1, 120));
-        inputs.add(Inputs.turtlesInCone(Inputs.SHEEP, 3, 120));
-        inputs.add(Inputs.turtlesInCone(Inputs.SHEEP, 5, 120));
+        // inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.FAR_NORTH));
+        // inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.FAR_SOUTH));
+        // inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.FAR_EAST));
+        // inputs.add(Inputs.turtlesAt(Inputs.SHEEP, Direction.FAR_WEST));
+        inputs.add(Inputs.turtlesInCone(Inputs.SHEEP, 2, 120));
 
         return inputs;
     }

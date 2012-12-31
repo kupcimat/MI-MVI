@@ -19,7 +19,7 @@ public class CGPEvolution {
     /*
      * Represents tolerance which is used when comparing 2 fitness values.
      */
-    public static final double FITNESS_TOLERANCE = 0.01;
+    public static final double FITNESS_TOLERANCE = 1;
 
     private CGPConfiguration config;
     private FitnessEvaluator evaluator;
@@ -106,7 +106,7 @@ public class CGPEvolution {
 
     protected double getSheepFitness(Genome genome) {
         String code = genome.decode();
-        double fitness = evaluator.evaluateSheepFitness(code, FitnessEvaluator.RANDOM_MOVE);
+        double fitness = evaluator.evaluateSheepFitness(code, FitnessEvaluator.INTELLIGENT_WOLVES);
 
         logger.debug(String.format("Evaluated sheep with fitness = %s, genome = %s", fitness, code));
         return fitness;
@@ -114,7 +114,7 @@ public class CGPEvolution {
 
     protected double getWolfFitness(Genome genome) {
         String code = genome.decode();
-        double fitness = evaluator.evaluateWolvesFitness(FitnessEvaluator.RANDOM_MOVE, code);
+        double fitness = evaluator.evaluateWolvesFitness(FitnessEvaluator.INTELLIGENT_SHEEP, code);
 
         logger.debug(String.format("Evaluated wolf with fitness = %s, genome = %s", fitness, code));
         return fitness;

@@ -19,6 +19,8 @@ public class FitnessEvaluator {
 	 * NetLogo code for random move. Can be used for moveSheepBody and moveWolfBody arguments.
 	 */
 	public final static String RANDOM_MOVE = "report list random 360 random-float 1";
+	public final static String INTELLIGENT_SHEEP = "report list (360 * (1 / (1 + exp (-1.0 * ((count sheep in-cone 1 120) + (count patches at-points [[1 0] [2 0] [3 0] [4 0] [5 0]] with [pcolor = green])))))) (1 * (1 / (1 + exp (-1.0 * ((count patches at-points [[1 0] [2 0] [3 0] [4 0] [5 0]] with [pcolor = green]) * ((count patches at-points [[0 1] [0 2] [0 3] [0 4] [0 5]] with [pcolor = green]) * ((count sheep-on patches at-points [[-2 -4] [-1 -4] [0 -4] [1 -4] [2 -4] [-2 -3] [-1 -3] [0 -3] [1 -3] [2 -3]]) + (count wolves-on patches at-points [[-2 4] [-1 4] [0 4] [1 4] [2 4] [-2 3] [-1 3] [0 3] [1 3] [2 3]]))))))))";
+	public final static String INTELLIGENT_WOLVES = "report list (360 * (1 / (1 + exp (-1.0 * ((((count sheep in-cone 5 120) + (count wolves in-cone 1 120)) + (count sheep in-cone 5 120)) + (count wolves-on patches at-points [[-2 4] [-1 4] [0 4] [1 4] [2 4] [-2 3] [-1 3] [0 3] [1 3] [2 3]])))))) (1 * (1 / (1 + exp (-1.0 * (((count patches at-points [[0 1] [0 2] [0 3] [0 4] [0 5]] with [pcolor = green]) + (count patches at-points [[0 1] [0 2] [0 3] [0 4] [0 5]] with [pcolor = brown])) + (count patches at-points [[0 1] [0 2] [0 3] [0 4] [0 5]] with [pcolor = brown]))))))";
 	
 	/**
 	 * Determines whether or not the temporary .nlogo files should be deleted after execution.
